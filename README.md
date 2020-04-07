@@ -20,4 +20,11 @@ Install all the prerequesites
 $ pip install -r requirements.txt
 ```
 
+If you want to run a Jupyter Notebook
+```
+$ pip install ipykernel
+$ ipython kernel install --user --name=venv
+$ jupyter notebook
+```
+
 Have Fun!
