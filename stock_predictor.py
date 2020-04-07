@@ -12,17 +12,15 @@ import numpy as np
 import yfinance as yf
 import pandas as pd
 import math
+import matplotlib.pyplot as plt
 from sklearn.preprocessing import StandardScaler, scale
 from sklearn.model_selection import train_test_split as tts
 from sklearn.ensemble import RandomForestRegressor
 from sklearn.svm import SVR
 from sklearn.linear_model import LinearRegression
 
-# Regressor
-model = RandomForestRegressor(n_estimators=100, random_state=42)
-
 tickerData = yf.Ticker("UBS")
-df = tickerData.history(period='1d', start="2018-1-1")
+df = tickerData.history(period='1d', start="2015-1-1", end="2020-04-06")
 
 
 # Create some extra features
@@ -42,9 +40,15 @@ y = df["label"]
 # Train-Test Split
 X_train, X_test, y_train, y_test = tts(X, y, test_size = 0.2, random_state= 42)
 
+
+# Regressor
+model = RandomForestRegressor(n_estimators=200, random_state=42)
 # Train model
 model.fit(X_train, y_train)
 
 # Asses model
 score  = model.score(X_test, y_test)
-print("R² score of Regressor: ", score)    
+print("R² score of Regressor: ", score)
+
+# Plot results
+df["Close"].plot()
